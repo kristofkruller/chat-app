@@ -1,4 +1,4 @@
-`npm i express body-parser cors dotenv helmet morgan`
+`npm i express body-parser cors dotenv helmet morgan axios`
 `npm i -D nodemon`
 
 *https://github.com/openai/openai-node*
