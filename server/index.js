@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
+import { router as chatRouter } from "./routes/chat";
 
 import { Configuration, OpenAIApi } from "openai";
 
@@ -11,6 +12,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 dotenv.config();
 const app = express();
+const router = express.Router();
 
 app.use(express.json());
 app.use(helmet());
@@ -19,7 +21,7 @@ app.use(morgan("common"));
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
+app.use(chatRouter);
 /*AI CONFIG*/
 
 const configuration = new Configuration({
@@ -28,13 +30,8 @@ const configuration = new Configuration({
 
 export const openai = new OpenAIApi(configuration);
 
-/*ROUTES*/
-
-app.use("/openai", openAiRoutes);
-app.use("/auth", authRoutes); 
-
 /*SERVER*/
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 9000; 
 
-app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`)); 

@@ -5,11 +5,15 @@ import { openai } from "..";
 
 dotenv.config();
 
-const router = express.Router();
+export const router = express.Router();
 
-router.post("/code", async(req, res) => {
+app.get("/chat", (req, res) => {
+  res.status(200).send({ message: "Hello World" });
+});
+
+app.post("/", async(req, res) => { 
   try {
-    const { text, activeChatId } = req.body;
+    const { text, activeChatId } = req.body; // active
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
