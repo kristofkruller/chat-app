@@ -4,9 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-import { router as chatRouter } from "./routes/chat";
-
-import { Configuration, OpenAIApi } from "openai";
+import chat from "./routes/chat.js";
 
 /*INVOKE ASSETS*/
 
@@ -21,14 +19,8 @@ app.use(morgan("common"));
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(chatRouter);
-/*AI CONFIG*/
 
-const configuration = new Configuration({
-  apiKey: process.env.OPEN_API_KEY,
-});
-
-export const openai = new OpenAIApi(configuration);
+app.use(chat);
 
 /*SERVER*/
 

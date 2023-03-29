@@ -1,17 +1,25 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
-import { openai } from "..";
+
+import { Configuration, OpenAIApi } from "openai";
+
+
+const configuration = new Configuration({
+  apiKey: process.env.OPEN_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 dotenv.config();
 
-export const router = express.Router();
+const router = express.Router();
 
-app.get("/chat", (req, res) => {
+router.get("/chat", (req, res) => {
   res.status(200).send({ message: "Hello World" });
 });
 
-app.post("/", async(req, res) => { 
+router.post("/", async(req, res) => { 
   try {
     const { text, activeChatId } = req.body; // active
 
